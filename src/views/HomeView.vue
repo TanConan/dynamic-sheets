@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import ActionCard from "@/components/ActionCard.vue";
 import { useRecentStore } from "@/stores/recent-store";
-import type { SheetLocation } from "@/types/persistence";
+import { getProviderIcon, type SheetLocation } from "@/types/persistence";
 import { UseTimeAgo } from "@vueuse/components";
 
 const recentStore = useRecentStore();
@@ -43,11 +43,17 @@ function openRecent(sheet: SheetLocation) {
     <section v-if="recentStore.recentSheets.length" class="recent">
       <h2 class="recent__title">Recently opened</h2>
       <div class="recent__list">
-        <ActionCard v-for="sheet in recentStore.recentSheets" :key="sheet.path" variant="default" class="recent__card" @click="openRecent(sheet)">
+        <ActionCard
+          v-for="recentSheet in recentStore.recentSheets"
+          :key="recentSheet.path"
+          variant="default"
+          class="recent__card"
+          @click="openRecent(recentSheet)"
+        >
           <div class="recent__card-content">
-            <span class="recent__card-name">{{ sheet.name }}</span>
-            <span class="recent__card-provider">{{ sheet.storageProvider }}</span>
-            <UseTimeAgo v-slot="{ timeAgo }" :time="sheet.lastUpdated">
+            <img class="recent__card-provider" :src="getProviderIcon(recentSheet.storageProvider)" />
+            <span class="recent__card-name">{{ recentSheet.name }}</span>
+            <UseTimeAgo v-slot="{ timeAgo }" :time="recentSheet.lastUpdated">
               <span class="recent__card-time">{{ timeAgo }}</span>
             </UseTimeAgo>
           </div>
@@ -128,7 +134,6 @@ function openRecent(sheet: SheetLocation) {
     font-size: $font-size-sm;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
     color: $color-text-muted;
     margin-bottom: $spacing-sm;
   }
@@ -151,27 +156,15 @@ function openRecent(sheet: SheetLocation) {
   }
 
   &__card-provider {
-    @include respond-to(2xs) {
-      margin: 0;
-    }
-    margin-left: auto;
-    font-size: $font-size-sm;
-    color: $color-text-muted;
-    background: $color-neutral-100;
-    padding: 2px $spacing-xs;
-    border-radius: $radius-sm;
-    flex-shrink: 0;
+    width: $icon-size-md;
+    aspect-ratio: 1;
   }
 
   &__card-time {
-    display: none;
     margin-left: auto;
     font-size: $font-size-sm;
     color: $color-text-muted;
     flex-shrink: 0;
-    @include respond-to(2xs) {
-      display: block;
-    }
   }
 }
 </style>
