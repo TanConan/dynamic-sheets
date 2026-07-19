@@ -1,7 +1,15 @@
 @use "variables" as *;
 
 @mixin respond-to($breakpoint) {
-  @if $breakpoint == sm {
+  @if $breakpoint == 2xs {
+    @media (min-width: $breakpoint-2xs) {
+      @content;
+    }
+  } @else if $breakpoint == xs {
+    @media (min-width: $breakpoint-xs) {
+      @content;
+    }
+  } @else if $breakpoint == sm {
     @media (min-width: $breakpoint-sm) {
       @content;
     }

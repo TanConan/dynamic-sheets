@@ -93,7 +93,6 @@ function openRecent(sheet: SheetLocation) {
 
   &__tile {
     flex: 1 1 240px;
-    min-height: 160px;
   }
 
   &__tile-content {
@@ -145,16 +144,17 @@ function openRecent(sheet: SheetLocation) {
   &__card-content {
     @include flex(row, flex-start, center, $spacing-sm);
     padding: $spacing-sm $spacing-md;
-    text-align: left;
   }
 
   &__card-name {
-    font-weight: 500;
-    color: $color-text;
     @include truncate;
   }
 
   &__card-provider {
+    @include respond-to(2xs) {
+      margin: 0;
+    }
+    margin-left: auto;
     font-size: $font-size-sm;
     color: $color-text-muted;
     background: $color-neutral-100;
@@ -164,10 +164,14 @@ function openRecent(sheet: SheetLocation) {
   }
 
   &__card-time {
+    display: none;
     margin-left: auto;
     font-size: $font-size-sm;
     color: $color-text-muted;
     flex-shrink: 0;
+    @include respond-to(2xs) {
+      display: block;
+    }
   }
 }
 </style>
