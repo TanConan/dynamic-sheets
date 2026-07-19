@@ -48,3 +48,8 @@
   box-shadow: $shadow-sm;
   border: 1px solid $color-border;
 }
+
+@mixin icon($size: $icon-size-md) {
+  aspect-ratio: 1;
+  width: $size;
+}

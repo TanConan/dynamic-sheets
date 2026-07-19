@@ -3,10 +3,14 @@ import ActionCard from "@/components/ActionCard.vue";
 import { useRecentStore } from "@/stores/recent-store";
 import { getProviderIcon, type SheetLocation } from "@/types/persistence";
 import { UseTimeAgo } from "@vueuse/components";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const recentStore = useRecentStore();
 
-function createNew() {}
+function createNew() {
+  router.push("editor");
+}
 
 function openExisting() {}
 
@@ -65,8 +69,8 @@ function openRecent(sheet: SheetLocation) {
 
 <style lang="scss" scoped>
 .landing {
-  min-height: 100vh;
   @include flex(column, flex-start, center);
+  min-height: 100vh;
   padding: $spacing-xl $spacing-md;
   gap: $spacing-xl;
 }
@@ -156,8 +160,7 @@ function openRecent(sheet: SheetLocation) {
   }
 
   &__card-provider {
-    width: $icon-size-md;
-    aspect-ratio: 1;
+    @include icon;
   }
 
   &__card-time {
