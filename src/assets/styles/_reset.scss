@@ -26,9 +26,16 @@ svg {
 }
 
 input,
-button,
 textarea,
 select {
+  font: inherit;
+}
+
+button {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
   font: inherit;
 }
 

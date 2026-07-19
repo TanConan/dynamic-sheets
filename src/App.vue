@@ -1,7 +1,5 @@
-<script lang="ts" setup></script>
-
 <template>
-  <h1>Dynamic Sheets</h1>
+  <main>
+    <RouterView />
+  </main>
 </template>
-
-<style lang="scss" scoped></style>
